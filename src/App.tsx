@@ -19,6 +19,9 @@ import Forum from './pages/Forum';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsOfUse from './pages/TermsOfUse';
 import XdcDev from './pages/XdcDev';
+import News from './pages/News';
+import Documentation from './pages/Documentation';
+import GoToTop from './components/GoToTop';
 
 function App() {
   return (
@@ -50,13 +53,23 @@ function App() {
           <Route path="/brand-assets" element={<BrandAssets />} />
           <Route path="/project-support" element={<ProjectSupport />} />
 
+          {/* Documentation Routes */}
+          <Route path="/docs" element={<Documentation />} />
+          <Route path="/subnets" element={<Documentation />} />
+          <Route path="/tutorials" element={<Documentation />} />
+          <Route path="/whitepapers" element={<Documentation />} />
+
           {/* Community Section Routes */}
           <Route path="/forum" element={<Forum />} />
 
           {/* Legal Routes */}
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-use" element={<TermsOfUse />} />
+
+          {/* News Routes */}
+          <Route path="/news" element={<News />} />
         </Routes>
+        <GoToTop />
       </Layout>
     </Router>
   );

@@ -427,7 +427,7 @@ const Home: React.FC = () => {
                   disableOnInteraction: false,
                 }}
                 loop={true}
-                className="!pb-12"
+                className="!pb-12 relative"
               >
                 {[1, 2, 3, 4, 5, 6].map((item, index) => (
                   <SwiperSlide key={index}>
@@ -464,20 +464,20 @@ const Home: React.FC = () => {
                     </motion.div>
                   </SwiperSlide>
                 ))}
+
+                {/* Custom Navigation Arrows - Updated styling */}
+                <motion.button
+                  whileHover={{ x: -5 }}
+                  className="swiper-button-prev !flex !text-[#001F4D] !left-0 !w-10 !h-10 !bg-white/80 hover:!bg-white !rounded-full !shadow-lg !transition-all !z-10"
+                ></motion.button>
+                <motion.button
+                  whileHover={{ x: 5 }}
+                  className="swiper-button-next !flex !text-[#001F4D] !right-0 !w-10 !h-10 !bg-white/80 hover:!bg-white !rounded-full !shadow-lg !transition-all !z-10"
+                ></motion.button>
+
+                {/* Pagination Dots */}
+                <div className="swiper-pagination !bottom-0"></div>
               </Swiper>
-
-              {/* Pagination Dots */}
-              <div className="swiper-pagination !bottom-0"></div>
-
-              {/* Custom Navigation Arrows - Hidden on Mobile */}
-              <motion.button
-                whileHover={{ x: -5 }}
-                className="swiper-button-prev !hidden sm:!flex !text-[#001F4D] absolute left-0 top-1/2 -translate-y-1/2 -translate-x-[120%] !w-auto !h-auto !mt-0 !after:content-['←'] !after:text-3xl sm:!after:text-4xl hover:!text-[#7CFFE9] transition-colors"
-              ></motion.button>
-              <motion.button
-                whileHover={{ x: 5 }}
-                className="swiper-button-next !hidden sm:!flex !text-[#001F4D] absolute right-0 top-1/2 -translate-y-1/2 translate-x-[120%] !w-auto !h-auto !mt-0 !after:content-['→'] !after:text-3xl sm:!after:text-4xl hover:!text-[#7CFFE9] transition-colors"
-              ></motion.button>
             </motion.div>
           </div>
         </section>
@@ -568,6 +568,25 @@ const Home: React.FC = () => {
                       </motion.div>
                     </div>
                   </motion.button>
+
+                  <Link
+                    to="/network"
+                    className="flex items-center pb-6 w-full text-left border-b border-gray-200 group"
+                  >
+                    <div className="flex justify-between items-center w-full">
+                      <span className="text-lg font-normal text-[#1A1A1A] group-hover:text-[#696969] transition-colors">
+                        Explore the Network
+                      </span>
+                      <motion.div
+                        whileHover={{ x: 5 }}
+                        className="transition-transform transform group-hover:translate-x-1"
+                      >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M14 5L21 12M21 12L14 19M21 12H3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </motion.div>
+                    </div>
+                  </Link>
                 </motion.div>
               </div>
             </motion.div>
