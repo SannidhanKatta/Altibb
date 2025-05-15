@@ -1,17 +1,38 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 const ForestIllustration: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const imageRef = useRef<HTMLImageElement | null>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start end", "end start"]
     });
 
-    const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
-    const scale = useTransform(scrollYProgress, [0, 0.3], [0.98, 1]);
+    // Faster animation by adjusting the transform values
+    const opacity = useTransform(scrollYProgress, [0, 0.2], [0, 1]);
+    const scale = useTransform(scrollYProgress, [0, 0.2], [0.98, 1]);
+
+    // Smooth mouse movement values
+    const smoothX = useSpring(0, { damping: 50, stiffness: 400 });
+    const smoothY = useSpring(0, { damping: 50, stiffness: 400 });
+
+    // Handle mouse movement
+    const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
+        const { clientX, clientY } = event;
+        const { left, top, width, height } = containerRef.current?.getBoundingClientRect() || { left: 0, top: 0, width: 0, height: 0 };
+
+        // Calculate relative mouse position (-1 to 1)
+        const x = ((clientX - left) / width - 0.5) * 2;
+        const y = ((clientY - top) / height - 0.5) * 2;
+
+        smoothX.set(x * 10); // Reduced movement intensity
+        smoothY.set(y * 10);
+        setMousePosition({ x, y });
+    };
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -20,11 +41,9 @@ const ForestIllustration: React.FC = () => {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
-        // Set canvas dimensions to match XDC's implementation
         canvas.width = 2064;
         canvas.height = 1402;
 
-        // Create and load the image
         const image = new Image();
         imageRef.current = image;
         image.src = '/forest-illustration.jpg';
@@ -49,7 +68,7 @@ const ForestIllustration: React.FC = () => {
 
                 // Add subtle glow to the center sun
                 const centerX = canvas.width / 2;
-                const centerY = canvas.height * 0.4; // Adjust based on sun position
+                const centerY = canvas.height * 0.4;
                 const gradient = ctx.createRadialGradient(
                     centerX, centerY, 0,
                     centerX, centerY, 200
@@ -63,13 +82,13 @@ const ForestIllustration: React.FC = () => {
             // Initial draw
             drawImage();
 
-            // Add subtle animation
+            // Add subtle animation with increased speed
             let frame = 0;
             const animate = () => {
-                frame += 0.5;
+                frame += 1.0;
 
                 // Add very subtle movement
-                canvas.style.transform = `translateY(${Math.sin(frame * 0.02) * 2}px)`;
+                canvas.style.transform = `translateY(${Math.sin(frame * 0.03) * 2}px)`;
 
                 requestAnimationFrame(animate);
             };
@@ -78,10 +97,9 @@ const ForestIllustration: React.FC = () => {
         };
 
         return () => {
-            // Cleanup if needed
             imageRef.current = null;
         };
-    }, []);
+    }, []); // Removed mousePosition dependency
 
     return (
         <motion.div
@@ -92,8 +110,15 @@ const ForestIllustration: React.FC = () => {
                 scale,
                 height: 'calc(100vh - 80px)',
             }}
+            onMouseMove={handleMouseMove}
         >
-            <div className="flex absolute inset-0 justify-center items-center">
+            <motion.div
+                className="flex absolute inset-0 justify-center items-center"
+                style={{
+                    x: smoothX,
+                    y: smoothY,
+                }}
+            >
                 <canvas
                     ref={canvasRef}
                     className="object-cover w-full h-full"
@@ -101,9 +126,10 @@ const ForestIllustration: React.FC = () => {
                         maxWidth: '100%',
                         maxHeight: '100%',
                         objectFit: 'cover',
+                        willChange: 'transform',
                     }}
                 />
-            </div>
+            </motion.div>
             <div
                 className="absolute inset-0 bg-gradient-to-b from-background/0 via-background/0 to-background"
                 style={{

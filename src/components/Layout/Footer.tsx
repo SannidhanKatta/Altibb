@@ -3,13 +3,13 @@ import { Link } from 'react-router-dom';
 const footerNavigation = {
     about: [
         { name: 'History', href: '/history' },
-        { name: 'Disclaimer & Terms of Use', href: '/terms' },
-        { name: 'Privacy Policy', href: '/privacy' },
+        { name: 'Disclaimer & Terms of Use', href: '/' },
+        { name: 'Privacy Policy', href: '/' },
     ],
     resources: [
         { name: 'Brand Assets', href: '/brand-assets' },
-        { name: 'Get in touch', href: '/contact' },
-        { name: 'Project PR Support', href: '/pr-support' },
+        { name: 'Get in touch', href: '/' },
+        { name: 'Project PR Support', href: '/' },
     ],
     use: [
         { name: 'Ecosystem', href: '/ecosystem' },
@@ -28,11 +28,11 @@ const footerNavigation = {
 
 const Footer = () => {
     return (
-        <footer className="bg-gray-900 text-white">
-            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer className="text-white bg-gray-900">
+            <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:py-16 lg:px-8">
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
                     <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wider">About XDC</h3>
+                        <h3 className="text-sm font-semibold tracking-wider uppercase">About XDC</h3>
                         <ul className="mt-4 space-y-4">
                             {footerNavigation.about.map((item) => (
                                 <li key={item.name}>
@@ -44,7 +44,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wider">Resources</h3>
+                        <h3 className="text-sm font-semibold tracking-wider uppercase">Resources</h3>
                         <ul className="mt-4 space-y-4">
                             {footerNavigation.resources.map((item) => (
                                 <li key={item.name}>
@@ -56,7 +56,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wider">Use XDC</h3>
+                        <h3 className="text-sm font-semibold tracking-wider uppercase">Use XDC</h3>
                         <ul className="mt-4 space-y-4">
                             {footerNavigation.use.map((item) => (
                                 <li key={item.name}>
@@ -68,8 +68,8 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div>
-                        <h3 className="text-sm font-semibold uppercase tracking-wider">Stay tuned on</h3>
-                        <div className="mt-4 flex space-x-6">
+                        <h3 className="text-sm font-semibold tracking-wider uppercase">Stay tuned on</h3>
+                        <div className="flex mt-4 space-x-6">
                             {footerNavigation.social.map((item) => (
                                 <a
                                     key={item.name}
@@ -85,8 +85,8 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-                <div className="mt-12 border-t border-gray-800 pt-8">
-                    <p className="text-gray-400 text-sm text-center">
+                <div className="pt-8 mt-12 border-t border-gray-800">
+                    <p className="text-sm text-center text-gray-400">
                         ©{new Date().getFullYear()} XDC Foundation, All Rights Reserved
                     </p>
                 </div>

@@ -106,8 +106,8 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <a href="/" className="flex items-center">
-              <span className="text-2xl font-bold text-blue-600">XDC</span>
-              <span className="text-2xl font-bold text-gray-800">Network</span>
+              <span className={`text-2xl font-bold ${scrolled ? 'text-blue-600' : 'text-primary'}`}>XDC</span>
+              <span className={`text-2xl font-bold ${scrolled ? 'text-gray-800' : 'text-white'}`}>Network</span>
             </a>
           </div>
 
@@ -116,7 +116,7 @@ const Header: React.FC = () => {
             {mainNavItems.map((item) => (
               <div key={item.label} className="relative group">
                 <button
-                  className="flex items-center font-medium text-gray-700 hover:text-blue-600"
+                  className={`flex items-center font-medium ${scrolled ? 'text-gray-700 hover:text-blue-600' : 'text-white hover:text-primary'}`}
                   onClick={() => toggleDropdown(item.label)}
                 >
                   {item.label}
@@ -133,7 +133,7 @@ const Header: React.FC = () => {
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
-              className="inline-flex justify-center items-center p-2 text-gray-700 rounded-md hover:text-blue-600 hover:bg-gray-100 focus:outline-none"
+              className={`inline-flex justify-center items-center p-2 rounded-md focus:outline-none ${scrolled ? 'text-gray-700 hover:text-blue-600 hover:bg-gray-100' : 'text-white hover:text-primary hover:bg-white/10'}`}
               onClick={toggleMenu}
             >
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}

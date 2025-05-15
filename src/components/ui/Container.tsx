@@ -16,8 +16,8 @@ const Container: React.FC<ContainerProps> = ({
   return (
     <Component
       className={`mx-auto w-full ${noPadding
-          ? ''
-          : 'px-4 sm:px-6 lg:px-8 2xl:px-12'
+        ? ''
+        : 'px-4 sm:px-6 lg:px-8 2xl:px-12'
         } max-w-[1440px] ${className}`}
     >
       {children}
